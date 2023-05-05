@@ -1,5 +1,6 @@
 import "../../main.css";
 import logoKita from "../../assets/kitajalan.com.svg";
+import CategoryItems from "../../items/CategoryItems";
 function Navbar() {
   return (
     <>
@@ -25,9 +26,7 @@ function Navbar() {
                 Home
               </a>
 
-              <a className="nav-link" href={"/category"}>
-                Category
-              </a>
+              <CategoryItems/>
 
               <a className="nav-link" href={"/activity"}>
                 Activity

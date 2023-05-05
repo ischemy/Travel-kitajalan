@@ -9,7 +9,7 @@ function CategoryItems() {
   useEffect(() => {
     axios({
       method: "get",
-      url: `${URL_API}/api/v1/categories`,
+      url: `${URL_API}/api/v1/categories/`,
       headers: { apiKey: apiKey },
     }).then(function (response) {
       console.log(response.data.data);
@@ -19,31 +19,32 @@ function CategoryItems() {
 
   return (
     <>
-      <div className="container">
-        <div className="row">
-          {category.map((items) => {
+      <div className="dropdown">
+        <button
+          className="btn main-font dropdown-toggle"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Category
+        </button>
+        <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          {category.map((item) => {
             return (
               <>
-                <div className="col-3" data-aos="fade-up">
-                  <div className="card border-none" width="18rem">
-                    <div className="card-body">
-                      <a href={"/detail"}>
-                        <img
-                          src={items.imageUrl}
-                          alt="content-photo"
-                          className="card-img-top"
-                        />
-                        <h5 className="card-title mt-3 main-fonts">
-                          {items.name}
-                        </h5>
-                      </a>
-                    </div>
-                  </div>
-                </div>
+                <li>
+                  <a
+                    className="dropdown-item main-font"
+                    href={`/category/${item.id}`}
+                  >
+                    {item.name}
+                  </a>
+                </li>
               </>
             );
           })}
-        </div>
+        </ul>
       </div>
     </>
   );

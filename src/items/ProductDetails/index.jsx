@@ -1,7 +1,4 @@
 import "../../main.css";
-// import image1 from "../../assets/Ancol.jpg";
-// import image2 from "../../assets/Pantai ANcol.jpeg";
-// import image3 from "../../assets/ancol-bridge.jpg";
 import ImageGallery from "react-image-gallery";
 import "react-image-gallery/styles/css/image-gallery.css";
 import { useEffect, useState } from "react";
@@ -14,30 +11,16 @@ function ProductDetails() {
   const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
   const { id } = useParams();
 
-  // const images = [
-  //   {
-  //     original: image1,
-  //     thumbnail: image1,
-  //   },
-  //   {
-  //     original: image2,
-  //     thumbnail: image2,
-  //   },
-  //   {
-  //     original: image3,
-  //     thumbnail: image3,
-  //   },
-  // ];
+  console.log(id);
 
   useEffect(() => {
     axios({
       method: "get",
-      url: `${URL_API}/api/v1/activities/`,
+      url: `${URL_API}/api/v1/activity/${id}`,
       headers: { apiKey: apiKey },
-      params: { id: id },
     }).then(function (response) {
-      console.log(response.data.data);
-      setActivities(response.data.data);
+      console.log(response);
+      setActivities(response);
     });
   }, [id]);
 

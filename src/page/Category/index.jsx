@@ -3,14 +3,14 @@ import SecondNavbar from "../../components/SecondNavbar";
 import Footer from "../../components/Footer";
 import CategoryItems from "../../items/CategoryItems";
 
-function Category() {
+function CategoryDetail() {
   return (
     <>
       <SecondNavbar />
-      <CategoryItems/>
+      
       <Footer />
     </>
   );
 }
 
-export default Category;
+export default CategoryDetail;

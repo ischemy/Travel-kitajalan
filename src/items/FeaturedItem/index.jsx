@@ -13,7 +13,6 @@ function FeaturedItem() {
       url: `${URL_API}/api/v1/activities`,
       headers: { apiKey: apiKey },
     }).then(function (response) {
-      console.log(response.data.data);
       setActivities(response.data.data);
     });
   }, []);
@@ -32,15 +31,13 @@ function FeaturedItem() {
                           src={item.imageUrls}
                           alt="content-photo"
                           className="card-img-top"
+                          height={250}
+                          width={300}
                         />
                         <h5 className="card-title mt-3 main-fonts">
                           {item.title}
                         </h5>
-                        <p className="main-fonts">
-                          Taman Impian Jaya Ancol adalah sebuah taman hiburan di
-                          Jakarta Utara, Indonesia. Taman ini dioperasikan oleh
-                          PT Pembangunan Jaya Ancol, Tbk
-                        </p>
+                        <p className="main-fonts">{item.description}</p>
                       </a>
                     </div>
                   </div>

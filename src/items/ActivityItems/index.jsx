@@ -5,7 +5,7 @@ import axios from "axios";
 function ActivityItems() {
   const URL_API = "https://travel-journal-api-bootcamp.do.dibimbing.id";
   const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
-  const [activities, setActivities] = useState([{}]);
+  const [activities, setActivities] = useState([]);
 
   useEffect(() => {
     axios({
@@ -13,7 +13,6 @@ function ActivityItems() {
       url: `${URL_API}/api/v1/activities`,
       headers: { apiKey: apiKey },
     }).then(function (response) {
-      console.log(response.data.data);
       setActivities(response.data.data);
     });
   }, []);
@@ -32,6 +31,8 @@ function ActivityItems() {
                           src={item.imageUrls}
                           alt="content-photo"
                           className="card-img-top"
+                          height={250}
+                          width={300}
                         />
                         <h5 className="card-title mt-3 main-fonts">
                           {item.title}

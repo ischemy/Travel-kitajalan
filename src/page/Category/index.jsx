@@ -1,16 +1,16 @@
 import "../../main.css";
 import SecondNavbar from "../../components/SecondNavbar";
 import Footer from "../../components/Footer";
-import CategoryItems from "../../items/CategoryItems";
+import CategoryDetail from "../../items/CategoryDetail";
 
-function CategoryDetail() {
+function Category() {
   return (
     <>
       <SecondNavbar />
-      
+      <CategoryDetail />
       <Footer />
     </>
   );
 }
 
-export default CategoryDetail;
+export default Category;

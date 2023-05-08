@@ -12,7 +12,6 @@ function CategoryItems() {
       url: `${URL_API}/api/v1/categories/`,
       headers: { apiKey: apiKey },
     }).then(function (response) {
-      console.log(response.data.data);
       setCategory(response.data.data);
     });
   }, []);

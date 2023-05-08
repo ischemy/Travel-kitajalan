@@ -29,14 +29,11 @@ function CarouselItem() {
     <>
       <Carousel
         onChange={onChange}
-        //
         autoPlay
-        // The loop to show the slides will start automatically
         infiniteLoop={true}
-        // The loop will never end
         swipeable={false}
-        // User can swipe from one slide to another
         interval={intervalz}
+        showThumbs={false}
       >
         {promo.map((item) => {
           return (

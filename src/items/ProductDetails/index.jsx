@@ -31,7 +31,7 @@ function ProductDetails() {
         <h1 className="main-fonts">{activities.title}</h1>
         <div className="row pt-4 mt">
           <div className="col-6">
-            <img src={activities.imageUrls} alt="thumbnail" width={500} />
+            <img src={activities.imageUrls} alt="thumbnail" width={400} />
           </div>
           <div className="col-6">
             <h2 className="main-fonts">INFO</h2>
@@ -39,12 +39,6 @@ function ProductDetails() {
               <li className="main-fonts">
                 <span className="fw-bold">ALAMAT</span>: {activities.address} ,{" "}
                 {activities.province}, {activities.city}
-              </li>
-              <li className="main-fonts">
-                <span className="fw-bold">Nomor telepon</span>: (021) 29222222
-              </li>
-              <li className="main-fonts">
-                <span className="fw-bold">Kode pos</span>: 14430
               </li>
               <li className="main-fonts">
                 <span className="fw-bold">Kategori</span>: {categories.name}
@@ -57,10 +51,6 @@ function ProductDetails() {
         <h2 className="main-fonts">RATING : {activities.rating}</h2>
         <h3 className="main-fonts">Overview</h3>
         <p className="main-font">{activities.description}</p>
-
-        <div className="d-flex justify-content-center">
-          <button className="btn btn-success">Book Now</button>
-        </div>
       </div>
     </>
   );

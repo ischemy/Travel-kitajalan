@@ -5,6 +5,10 @@ import Login from "../Login";
 
 function Navbar() {
   const isLogin = JSON.parse(localStorage.getItem("token"));
+  function handleLogout() {
+    localStorage.clear();
+    window.location.reload();
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg my-nav" data-aos="fade-down">
@@ -48,8 +52,12 @@ function Navbar() {
               </div>
             ) : (
               <div className="navbar-nav ms-auto">
-                <a className="nav-link btn btn-primary ms-auto" role="button">
-                  Hello User
+                <a
+                  className="nav-link btn btn-primary ms-auto"
+                  role="button"
+                  onClick={handleLogout}
+                >
+                  Logout
                 </a>
               </div>
             )}

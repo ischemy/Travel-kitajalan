@@ -20,7 +20,7 @@ function CategoryDetail() {
 
   return (
     <>
-      <div className="container">
+      
         <div className="row mt-3">
           {category.map((item) => {
             return (
@@ -47,7 +47,7 @@ function CategoryDetail() {
             );
           })}
         </div>
-      </div>
+      
     </>
   );
 }

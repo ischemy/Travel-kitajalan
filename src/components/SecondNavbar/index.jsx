@@ -1,11 +1,18 @@
 import "../../main.css";
 import logoKita from "../../assets/kitajalan.com.svg";
 import CategoryItems from "../../items/CategoryItems";
+import Login from "../Login";
+
 function SecondNavbar() {
+  const isLogin = JSON.parse(localStorage.getItem("token"));
+  function handleLogout() {
+    localStorage.clear();
+    window.location.reload();
+  }
   return (
     <>
-      <nav className="navbar navbar-expand-lg" data-aos="fade-down">
-        <div className="container-fluid">
+      <div className="container-fluid">
+        <nav className="navbar navbar-expand-lg" data-aos="fade-down">
           <a className="navbar-brand" href={"/"}>
             <img src={logoKita} width="200px" alt="Logo" />
           </a>
@@ -27,177 +34,38 @@ function SecondNavbar() {
               </a>
 
               <CategoryItems />
+
               <a className="nav-link" href={"/activity"}>
                 Activity
               </a>
             </div>
-            <div className="navbar-nav ms-auto">
-              <a
-                className="nav-link btn btn-primary ms-auto"
-                data-bs-toggle="modal"
-                href="#exampleModalToggle"
-                role="button"
-              >
-                Login
-              </a>
-            </div>
-          </div>
-        </div>
-      </nav>
-      {/* MODAL */}
-      <div>
-        <div
-          className="modal fade"
-          id="exampleModalToggle"
-          aria-hidden="true"
-          aria-labelledby="exampleModalToggleLabel"
-          tabIndex="-1"
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalToggleLabel">
-                  Login
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <form>
-                  <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                      Email address
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                    <div id="emailHelp" className="form-text">
-                      {"We'll never share your email with anyone else."}
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-
-                  <button type="submit" className="btn btn-primary">
-                    Login
-                  </button>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <p>{"Don't have an account?"}</p>
-                <button
-                  className="btn btn-primary"
-                  data-bs-target="#exampleModalToggle2"
+            {!isLogin ? (
+              <div className="navbar-nav ms-auto">
+                <a
+                  className="nav-link btn btn-primary ms-auto"
                   data-bs-toggle="modal"
-                  data-bs-dismiss="modal"
-                >
-                  Register
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          className="modal fade"
-          id="exampleModalToggle2"
-          aria-hidden="true"
-          aria-labelledby="exampleModalToggleLabel2"
-          tabIndex="-1"
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalToggleLabel2">
-                  Register
-                </h5>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <form>
-                  <div className="mb-3">
-                    <label htmlFor="exampleInputEmail1" className="form-label">
-                      Email address
-                    </label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      id="exampleInputEmail1"
-                      aria-describedby="emailHelp"
-                    />
-                    <div id="emailHelp" className="form-text">
-                      {"We'll never share your email with anyone else."}
-                    </div>
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword1"
-                      className="form-label"
-                    >
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label
-                      htmlFor="exampleInputPassword2"
-                      className="form-label"
-                    >
-                      Re-Password
-                    </label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      id="exampleInputPassword1"
-                    />
-                  </div>
-
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
-                </form>
-              </div>
-              <div className="modal-footer">
-                <p>Have an account?</p>
-                <button
-                  className="btn btn-primary"
-                  data-bs-target="#exampleModalToggle"
-                  data-bs-toggle="modal"
-                  data-bs-dismiss="modal"
+                  href="#exampleModalToggle"
+                  role="button"
                 >
                   Login
-                </button>
+                </a>
               </div>
-            </div>
+            ) : (
+              <div className="navbar-nav ms-auto">
+                <a
+                  className="nav-link btn btn-primary ms-auto"
+                  role="button"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </a>
+              </div>
+            )}
           </div>
-        </div>
+        </nav>
       </div>
+      {/* MODAL */}
+      <Login />
     </>
   );
 }

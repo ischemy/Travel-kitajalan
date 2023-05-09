@@ -6,6 +6,7 @@ function Register() {
   const URL_API = "https://travel-journal-api-bootcamp.do.dibimbing.id";
   const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPassRepeat] = useState("");
 
@@ -15,12 +16,14 @@ function Register() {
       axios({
         method: "post",
         url: `${URL_API}/api/v1/register`,
-        headers: { apiKey: apiKey },
         data: {
           email: email,
           password: password,
           passwordRepeat: passwordRepeat,
+          role: "user",
+          name: name,
         },
+        headers: { apiKey: apiKey },
       }).then(function (response) {
         console.log(response);
         window.location.reload();
@@ -62,11 +65,23 @@ function Register() {
                     className="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
-                    onChange={(e) => setEmail(e)}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                   <div id="emailHelp" className="form-text">
                     {"We'll never share your email with anyone else."}
                   </div>
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="exampleInputName" className="form-label">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="exampleInputName"
+                    aria-describedby="nameHelp"
+                    onChange={(e) => setName(e.target.value)}
+                  />
                 </div>
                 <div className="mb-3">
                   <label htmlFor="exampleInputPassword1" className="form-label">
@@ -76,7 +91,7 @@ function Register() {
                     type="password"
                     className="form-control"
                     id="exampleInputPassword1"
-                    onChange={(e) => setPassword(e)}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>
                 <div className="mb-3">
@@ -87,14 +102,14 @@ function Register() {
                     type="password"
                     className="form-control"
                     id="exampleInputPassword2"
-                    onChange={(e) => setPassRepeat(e)}
+                    onChange={(e) => setPassRepeat(e.target.value)}
                   />
                 </div>
 
                 <button
                   type="submit"
                   className="btn btn-primary"
-                  onClick={(e) => handleRegister(e)}
+                  onClick={(e) => handleRegister(e.target.value)}
                 >
                   Submit
                 </button>

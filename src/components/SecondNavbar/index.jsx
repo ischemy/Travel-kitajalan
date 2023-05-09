@@ -11,8 +11,11 @@ function SecondNavbar() {
   }
   return (
     <>
-      <div className="container-fluid">
-        <nav className="navbar navbar-expand-lg" data-aos="fade-down">
+      <nav
+        className="navbar navbar-expand-lg my-second-nav"
+        data-aos="fade-down"
+      >
+        <div className="container-fluid">
           <a className="navbar-brand" href={"/"}>
             <img src={logoKita} width="200px" alt="Logo" />
           </a>
@@ -62,8 +65,8 @@ function SecondNavbar() {
               </div>
             )}
           </div>
-        </nav>
-      </div>
+        </div>
+      </nav>
       {/* MODAL */}
       <Login />
     </>

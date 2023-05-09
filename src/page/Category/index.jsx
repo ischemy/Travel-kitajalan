@@ -6,13 +6,8 @@ import CategoryDetail from "../../items/CategoryDetail";
 function Category() {
   return (
     <>
-    <div className="container-fluid">
-
       <SecondNavbar />
-    </div>
-      <div className="container">
-        <CategoryDetail />
-      </div>
+      <CategoryDetail />
       <Footer />
     </>
   );

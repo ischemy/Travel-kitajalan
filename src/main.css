@@ -33,8 +33,17 @@ a {
   width: 100%;
 }
 
+.my-second-nav {
+  z-index: 10;
+  width: 100%;
+}
+
 .img-rounded {
   border-radius: 10px;
+}
+
+.ava-rounded {
+  border-radius: 50%;
 }
 
 @media only screen and (max-width: 991px) {

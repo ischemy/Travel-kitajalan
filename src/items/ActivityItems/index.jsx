@@ -26,7 +26,7 @@ function ActivityItems() {
                 <div className="col-3" data-aos="fade-up">
                   <div className="card border-none" width="18rem">
                     <div className="card-body">
-                      <a href={"/detail"}>
+                      <a href={`/detail/${item.id}`}>
                         <img
                           src={item.imageUrls}
                           alt="content-photo"

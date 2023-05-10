@@ -2,13 +2,11 @@ import "../../main.css";
 import logoKita from "../../assets/kitajalan.com.svg";
 import CategoryItems from "../../items/CategoryItems";
 import Login from "../Login";
+import Avatar from "../Avatar";
 
 function Navbar() {
   const isLogin = JSON.parse(localStorage.getItem("token"));
-  function handleLogout() {
-    localStorage.clear();
-    window.location.reload();
-  }
+
   return (
     <>
       <nav className="navbar navbar-expand-lg my-nav" data-aos="fade-down">
@@ -51,15 +49,7 @@ function Navbar() {
                 </a>
               </div>
             ) : (
-              <div className="navbar-nav ms-auto">
-                <a
-                  className="nav-link btn btn-primary ms-auto"
-                  role="button"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </a>
-              </div>
+              <Avatar />
             )}
           </div>
         </div>

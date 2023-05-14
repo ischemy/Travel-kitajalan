@@ -21,6 +21,7 @@ function Login() {
       headers: { apiKey: apiKey },
     }).then(function (response) {
       localStorage.setItem("token", JSON.stringify(response.data.token));
+
       window.location.reload();
     });
   }

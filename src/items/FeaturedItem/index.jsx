@@ -37,7 +37,9 @@ function FeaturedItem() {
                         <h5 className="card-title mt-3 main-fonts">
                           {item.title}
                         </h5>
-                        <p className="main-fonts">{item.description}</p>
+                        <p className="main-fonts text-truncate">
+                          {item.description}
+                        </p>
                       </a>
                     </div>
                   </div>

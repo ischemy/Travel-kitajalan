@@ -10,28 +10,24 @@ function Register() {
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPassRepeat] = useState("");
 
-  function handleRegister(event) {
-    event.preventDefault();
-    try {
-      axios({
-        method: "post",
-        url: `${URL_API}/api/v1/register`,
-        data: {
-          email: email,
-          password: password,
-          passwordRepeat: passwordRepeat,
-          role: "user",
-          name: name,
-        },
-        headers: { apiKey: apiKey },
-      }).then(function (response) {
-        console.log(response);
-        window.location.reload();
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  }
+  const handleSubmit = () => {
+    console.log(email, name);
+    axios({
+      method: "post",
+      url: `${URL_API}/api/v1/register`,
+      data: {
+        name: name,
+        email: email,
+        password: password,
+        passwordRepeat: passwordRepeat,
+      },
+      headers: {
+        apiKey: apiKey,
+      },
+    }).then(function (response) {
+      console.log(response);
+    });
+  };
   return (
     <>
       <div
@@ -109,7 +105,7 @@ function Register() {
                 <button
                   type="submit"
                   className="btn btn-primary"
-                  onClick={(e) => handleRegister(e.target.value)}
+                  onClick={handleSubmit}
                 >
                   Submit
                 </button>

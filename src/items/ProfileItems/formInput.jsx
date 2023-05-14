@@ -1,6 +1,24 @@
 import "../../main.css";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 function FormItems() {
+  const URL_API = "https://travel-journal-api-bootcamp.do.dibimbing.id";
+  const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
+  const isLogin = JSON.parse(localStorage.getItem("token"));
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    axios({
+      method: "get",
+      url: `${URL_API}/api/v1/user`,
+      headers: { apiKey: apiKey, Authorization: "Bearer " + isLogin },
+    }).then(function (response) {
+      console.log(response.data.data);
+      setUser(response.data.data);
+    });
+  }, []);
+
   return (
     <>
       <div className="d-flex justify-content-center mt-4">
@@ -11,7 +29,7 @@ function FormItems() {
               type="text"
               className="form-control"
               id="name"
-              placeholder="Name"
+              value={user.name}
             />
           </div>
           <div className="form-group">
@@ -20,7 +38,7 @@ function FormItems() {
               type="email"
               className="form-control"
               id="exampleInputEmail1"
-              placeholder="Enter email"
+              value={user.email}
             />
           </div>
           <div className="form-group">
@@ -29,7 +47,7 @@ function FormItems() {
               type="password"
               className="form-control"
               id="exampleInputPassword1"
-              placeholder="Password"
+              placeholder="Change Password"
             />
           </div>
           <div className="form-group">
@@ -38,7 +56,7 @@ function FormItems() {
               type="text"
               className="form-control"
               id="phoneNumber"
-              placeholder="phoneNumber"
+              value={user.phoneNumber}
             />
           </div>
 

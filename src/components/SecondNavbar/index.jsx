@@ -2,13 +2,11 @@ import "../../main.css";
 import logoKita from "../../assets/kitajalan.com.svg";
 import CategoryItems from "../../items/CategoryItems";
 import Login from "../Login";
+import Avatar from "../Avatar";
 
-function SecondNavbar() {
+function Navbar() {
   const isLogin = JSON.parse(localStorage.getItem("token"));
-  function handleLogout() {
-    localStorage.clear();
-    window.location.reload();
-  }
+
   return (
     <>
       <nav
@@ -54,15 +52,7 @@ function SecondNavbar() {
                 </a>
               </div>
             ) : (
-              <div className="navbar-nav ms-auto">
-                <a
-                  className="nav-link btn btn-primary ms-auto"
-                  role="button"
-                  onClick={handleLogout}
-                >
-                  Logout
-                </a>
-              </div>
+              <Avatar />
             )}
           </div>
         </div>
@@ -73,4 +63,4 @@ function SecondNavbar() {
   );
 }
 
-export default SecondNavbar;
+export default Navbar;

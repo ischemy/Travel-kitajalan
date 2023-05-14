@@ -26,7 +26,7 @@ function CategoryItems() {
           data-bs-toggle="dropdown"
           aria-expanded="false"
         >
-          Category
+          Categories
         </button>
         <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
           {category.map((item) => {

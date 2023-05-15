@@ -1,6 +1,5 @@
 import "../../main.css";
 import FormItems from "./formInput";
-import PhotoItems from "./photo";
 import { useNavigate } from "react-router-dom";
 
 function ProfileItems() {
@@ -12,7 +11,6 @@ function ProfileItems() {
   return (
     <>
       <div className="container">
-        <PhotoItems />
         <FormItems />
         <a onClick={handleLogout}>
           <button className="btn btn-danger">Logout</button>

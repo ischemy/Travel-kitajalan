@@ -1,17 +1,44 @@
 import "../../main.css";
 import { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const URL_API = "https://travel-journal-api-bootcamp.do.dibimbing.id";
   const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPassRepeat] = useState("");
 
-  const handleSubmit = () => {
-    console.log(email, name);
+  const [profilePic, setProfilePic] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
+
+  const handleNameChange = (e) => {
+    // console.log(e)
+    setName(e.target.value);
+  };
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  const handleRePasswordChange = (e) => {
+    setPassRepeat(e.target.value);
+  };
+  const handlePhoneNumChange = (e) => {
+    setPhoneNum(e.target.value);
+  };
+  const handleProfilePicChange = (e) => {
+    setProfilePic(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
     axios({
       method: "post",
       url: `${URL_API}/api/v1/register`,
@@ -20,13 +47,22 @@ function Register() {
         email: email,
         password: password,
         passwordRepeat: passwordRepeat,
+        role: "user",
+        profilePictureUrl: profilePic,
+        phoneNumber: phoneNum,
       },
       headers: {
         apiKey: apiKey,
       },
-    }).then(function (response) {
-      console.log(response);
-    });
+    })
+      .then(function (response) {
+        console.log(response);
+        alert("success make account");
+        navigate("/");
+      })
+      .catch(function (err) {
+        console.log(err);
+      });
   };
   return (
     <>
@@ -61,7 +97,7 @@ function Register() {
                     className="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={handleEmailChange}
                   />
                   <div id="emailHelp" className="form-text">
                     {"We'll never share your email with anyone else."}
@@ -76,7 +112,7 @@ function Register() {
                     className="form-control"
                     id="exampleInputName"
                     aria-describedby="nameHelp"
-                    onChange={(e) => setName(e.target.value)}
+                    onChange={handleNameChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -87,7 +123,7 @@ function Register() {
                     type="password"
                     className="form-control"
                     id="exampleInputPassword1"
-                    onChange={(e) => setPassword(e.target.value)}
+                    onChange={handlePasswordChange}
                   />
                 </div>
                 <div className="mb-3">
@@ -98,7 +134,30 @@ function Register() {
                     type="password"
                     className="form-control"
                     id="exampleInputPassword2"
-                    onChange={(e) => setPassRepeat(e.target.value)}
+                    onChange={handleRePasswordChange}
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="phoneNum" className="form-label">
+                    Phone Number
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="phoneNum"
+                    onChange={handlePhoneNumChange}
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label htmlFor="phoneNum" className="form-label">
+                    Profile Picture
+                  </label>
+                  <input
+                    type="file"
+                    className="form-control"
+                    id="profilePic"
+                    onChange={handleProfilePicChange}
                   />
                 </div>
 

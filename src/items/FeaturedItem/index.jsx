@@ -23,7 +23,7 @@ function FeaturedItem() {
           {activities.map((item) => {
             return (
               <>
-                <div className="col-3" data-aos="fade-up">
+                <div className="col-lg-3" data-aos="fade-up">
                   <div className="card border-none" width="18rem" key={item.id}>
                     <div className="card-body">
                       <a href={`/detail/${item.id}`}>

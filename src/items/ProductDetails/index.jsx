@@ -33,7 +33,7 @@ function ProductDetails() {
           <div className="col-6">
             <img src={activities.imageUrls} alt="thumbnail" width={400} />
           </div>
-          <div className="col-6">
+          <div className="col-lg-6">
             <h2 className="main-fonts">INFO</h2>
             <ul>
               <li className="main-fonts">
@@ -63,9 +63,7 @@ function ProductDetails() {
           {activities.rating}
         </h2>
         <h3 className="main-fonts">Overview</h3>
-        <p className="main-font">
-          {activities.description}
-        </p>
+        <p className="main-font">{activities.description}</p>
       </div>
     </>
   );

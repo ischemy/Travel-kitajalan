@@ -10,6 +10,7 @@ function FormItems() {
   const [name, setName] = useState();
   const [email, setEmail] = useState();
   const [phoneNum, setPhoneNum] = useState();
+  const [image, setImage] = useState();
 
   useEffect(() => {
     axios({
@@ -27,18 +28,32 @@ function FormItems() {
 
   const handleEdit = (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", image);
     axios({
       method: "post",
-      url: `${URL_API}/api/v1/update-profile`,
-      data: {
-        name: name,
-        email: email,
-        phoneNumber: phoneNum,
+      url: `${URL_API}/api/v1/upload-image`,
+      data: formData,
+      headers: {
+        apiKey: apiKey,
+        Authorization: "Bearer " + isLogin,
       },
-      headers: { apiKey: apiKey, Authorization: "Bearer " + isLogin },
     }).then(function (response) {
       console.log(response);
-      window.location.reload();
+      axios({
+        method: "post",
+        url: `${URL_API}/api/v1/update-profile`,
+        data: {
+          name: name,
+          email: email,
+          phoneNumber: phoneNum,
+          profilePictureUrl: response.data.url,
+        },
+        headers: { apiKey: apiKey, Authorization: "Bearer " + isLogin },
+      }).then(function (response2) {
+        console.log(response2);
+        window.location.reload();
+      });
     });
   };
 
@@ -50,6 +65,10 @@ function FormItems() {
   };
   const handlePhoneNumChange = (e) => {
     setPhoneNum(e.target.value);
+  };
+  const handleImageChange = (e) => {
+    console.log(e.target.files[0]);
+    setImage(e.target.files[0]);
   };
 
   return (
@@ -68,7 +87,12 @@ function FormItems() {
           <label className="form-label text-white m-1" htmlFor="customFile2">
             Choose file
           </label>
-          <input type="file" className="form-control d-none" id="customFile2" />
+          <input
+            type="file"
+            className="form-control d-none"
+            id="customFile2"
+            onChange={handleImageChange}
+          />
         </div>
       </div>
       <div className="d-flex justify-content-center mt-4">

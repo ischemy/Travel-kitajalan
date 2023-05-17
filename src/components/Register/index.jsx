@@ -1,18 +1,15 @@
 import "../../main.css";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 function Register() {
   const URL_API = "https://travel-journal-api-bootcamp.do.dibimbing.id";
   const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
-  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPassRepeat] = useState("");
 
-  const [profilePic, setProfilePic] = useState("");
   const [phoneNum, setPhoneNum] = useState("");
 
   const handleNameChange = (e) => {
@@ -33,9 +30,6 @@ function Register() {
   const handlePhoneNumChange = (e) => {
     setPhoneNum(e.target.value);
   };
-  const handleProfilePicChange = (e) => {
-    setProfilePic(e.target.value);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +42,6 @@ function Register() {
         password: password,
         passwordRepeat: passwordRepeat,
         role: "user",
-        profilePictureUrl: profilePic,
         phoneNumber: phoneNum,
       },
       headers: {
@@ -58,10 +51,11 @@ function Register() {
       .then(function (response) {
         console.log(response);
         alert("success make account");
-        navigate("/");
+        window.location.reload();
       })
       .catch(function (err) {
-        console.log(err);
+        console.log(err.response.data.message);
+        alert(err.response.data.message);
       });
   };
   return (
@@ -148,19 +142,6 @@ function Register() {
                     onChange={handlePhoneNumChange}
                   />
                 </div>
-
-                <div className="mb-3">
-                  <label htmlFor="phoneNum" className="form-label">
-                    Profile Picture
-                  </label>
-                  <input
-                    type="file"
-                    className="form-control"
-                    id="profilePic"
-                    onChange={handleProfilePicChange}
-                  />
-                </div>
-
                 <button
                   type="submit"
                   className="btn btn-primary"

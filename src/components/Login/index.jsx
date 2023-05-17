@@ -19,11 +19,16 @@ function Login() {
         password: password,
       },
       headers: { apiKey: apiKey },
-    }).then(function (response) {
-      localStorage.setItem("token", JSON.stringify(response.data.token));
+    })
+      .then(function (response) {
+        localStorage.setItem("token", JSON.stringify(response.data.token));
 
-      window.location.reload();
-    });
+        window.location.reload();
+      })
+      .catch(function (error) {
+        console.log(error.response.data.message);
+        alert(error.response.data.message);
+      });
   }
   return (
     <>

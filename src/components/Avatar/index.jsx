@@ -2,6 +2,7 @@ import "../../main.css";
 
 import axios from "axios";
 import { useState, useEffect } from "react";
+import defaultpict from "../../assets/profileDefault.svg";
 
 function Avatar() {
   const [user, setUser] = useState([]);
@@ -16,23 +17,31 @@ function Avatar() {
     }).then(function (response) {
       console.log(response.data.data);
       setUser(response.data.data);
-      
     });
   }, []);
   return (
     <>
-
       <div className="ms-auto">
         <a href={"/profile"}>
           <button className="btn btn-primary">
             {user.name}
-            <img
-              src={user.profilePictureUrl}
-              alt="ProfilePicture"
-              className="ava-rounded ml-1"
-              width={30}
-              height={30}
-            />
+            {!user.profilePictureUrl ? (
+              <img
+                src={defaultpict}
+                className="ava-rounded ml-1"
+                width={30}
+                height={30}
+                alt="Profile Picture"
+              />
+            ) : (
+              <img
+                src={user.profilePictureUrl}
+                alt="ProfilePicture"
+                className="ava-rounded ml-1"
+                width={30}
+                height={30}
+              />
+            )}
           </button>
         </a>
       </div>

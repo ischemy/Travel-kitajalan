@@ -10,8 +10,7 @@ function ProductDetails() {
   const URL_API = "https://travel-journal-api-bootcamp.do.dibimbing.id";
   const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
   const { id } = useParams();
-  console.log(activities);
-  console.log(id);
+
 
   useEffect(() => {
     axios({
@@ -19,7 +18,7 @@ function ProductDetails() {
       url: `${URL_API}/api/v1/activity/${id}`,
       headers: { apiKey: apiKey },
     }).then(function (response) {
-      console.log(response.data.data);
+     
       setActivities(response.data.data);
       setCategories(response.data.data.category);
     });

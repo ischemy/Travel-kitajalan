@@ -20,7 +20,6 @@ function CarouselItem() {
       url: `${URL_API}/api/v1/promos`,
       headers: { apiKey: apiKey },
     }).then(function (response) {
-      console.log(response.data.data);
       setPromo(response.data.data);
     });
   }, []);

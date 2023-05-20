@@ -1,13 +1,18 @@
+
+
+export default FormItems;
+
+
 import "../../main.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import defaultpict from "../../assets/profileDefault.svg";
 function FormItems() {
-  const [user, setUser] = useState(null);
   const isLogin = JSON.parse(localStorage.getItem("token"));
-  const [nameEdit, setNameEdit] = useState("");
-  const [emailEdit, setEmailEdit] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [pictureEdit, setPictureEdit] = useState("");
-  const [numberEdit, setNumberEdit] = useState("");
+  const [phoneNum, setPhoneNum] = useState("");
   const [images, setImages] = useState();
   const [imagePreview, setImagePreview] = useState();
 
@@ -20,16 +25,15 @@ function FormItems() {
         },
       })
       .then((response) => {
-        console.log(response.data);
-        setUser(response.data);
-        setNameEdit(response.data.data.name);
-        setEmailEdit(response.data.data.email);
+        setName(response.data.data.name);
+        setEmail(response.data.data.email);
         setPictureEdit(response.data.data.profilePictureUrl);
-        setNumberEdit(response.data.data.phoneNumber);
+        setPhoneNum(response.data.data.phoneNumber);
         setImagePreview(response.data.data.profilePictureUrl);
       })
       .catch((error) => {
-        console.log(error.response.data);
+        
+        alert(error.response.data.message)
       });
   }, []);
 
@@ -38,8 +42,8 @@ function FormItems() {
     setImagePreview(URL.createObjectURL(e.target.files[0]));
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     let imageUrl = {
       url: pictureEdit,
     };
@@ -60,19 +64,19 @@ function FormItems() {
         )
         .then((response) => {
           imageUrl = response.data;
-          console.log(response.data);
+         
         });
     }
 
-    // await uploadImage();
+    
     axios
       .post(
         "https://travel-journal-api-bootcamp.do.dibimbing.id/api/v1/update-profile",
         {
-          name: nameEdit,
-          email: emailEdit,
+          name: name,
+          email: email,
           profilePictureUrl: imageUrl.url,
-          phoneNumber: numberEdit,
+          phoneNumber: phoneNum,
         },
         {
           headers: {
@@ -82,12 +86,13 @@ function FormItems() {
         }
       )
       .then((response1) => {
-        console.log(response1.data);
-        alert("Update Data Succes!");
+        
+        alert(response1.data.message);
+        window.location.reload();
       })
       .catch((error) => {
-        console.log(error);
-        alert("Error Update Data. Try Again!.");
+        
+        alert(error.response.data.message);
       });
   };
   if (!isLogin) {
@@ -95,23 +100,54 @@ function FormItems() {
   }
 
   return (
-    <div className="edit-account">
-      <div className="container">
-        <h1>Edit Account Detail</h1>
-        <div className="profile-picture">
-          <p>Profil Picture</p>
-          <img src={imagePreview} alt="Profile" />
-        </div>
-
+    <div className="container">
+      <div className="d-flex justify-content-center mb-4">
+        {!pictureEdit ? (
+          <img
+            src={defaultpict}
+            className="rounded-circle"
+            width="300px"
+            alt="Profile Picture"
+            height="300px"
+          />
+        ) : (
+          <img
+            src={imagePreview}
+            className="rounded-circle"
+            width="300px"
+            alt="Profile Picture"
+            height="300px"
+          />
+        )}
+      </div>
+      <div className="d-flex justify-content-center">
         <form onSubmit={handleSubmit}>
+          <div className="d-flex justify-content-center">
+            <div className="btn btn-primary btn-rounded">
+              <div className="form-group">
+                <label htmlFor="picture">Choose File</label>
+                <input
+                  accept="image/*"
+                  type="file"
+                  id="picture"
+                  name="picture"
+                  className="form-control d-none"
+                  placeholder="Profile Picture URL"
+                  // value={pictureEdit}
+                  onChange={(e) => handleImage(e)}
+                />
+              </div>
+            </div>
+          </div>
           <div className="form-group">
             <label htmlFor="name">Name</label>
             <input
               type="text"
               id="name"
               name="name"
-              value={nameEdit}
-              onChange={(event) => setNameEdit(event.target.value)}
+              className="form-control"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
           </div>
 
@@ -121,21 +157,9 @@ function FormItems() {
               type="email"
               id="email"
               name="email"
-              value={emailEdit}
-              onChange={(event) => setEmailEdit(event.target.value)}
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="picture">Profile Picture</label>
-            <input
-              accept="image/*"
-              type="file"
-              id="picture"
-              name="picture"
-              placeholder="Profile Picture URL"
-              // value={pictureEdit}
-              onChange={(e) => handleImage(e)}
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -145,175 +169,20 @@ function FormItems() {
               type="text"
               id="phone"
               name="phone"
-              placeholder="Profile Phone Number"
-              value={numberEdit}
-              onChange={(event) => setNumberEdit(event.target.value)}
+              className="form-control"
+              value={phoneNum}
+              onChange={(e) => setPhoneNum(e.target.value)}
             />
           </div>
-
-          <button type="submit">Save Changes</button>
+          <div className="d-flex justify-content-center">
+            <button type="submit" className="btn btn-primary mt-3">
+              Save Changes
+            </button>
+          </div>
         </form>
-        {/* <AllUser /> */}
       </div>
     </div>
   );
 }
 
 export default FormItems;
-
-import "../../main.css";
-import axios from "axios";
-import { useEffect, useState } from "react";
-
-function FormItems() {
-  const URL_API = "https://travel-journal-api-bootcamp.do.dibimbing.id";
-  const apiKey = "24405e01-fbc1-45a5-9f5a-be13afcd757c";
-  const isLogin = JSON.parse(localStorage.getItem("token"));
-
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [phoneNum, setPhoneNum] = useState();
-  const [pictureEdit, setPictureEdit] = useState("");
-  const [image, setImage] = useState("");
-  const [imagePreview, setImagePreview] = useState();
-
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: `${URL_API}/api/v1/user`,
-      headers: { apiKey: apiKey, Authorization: "Bearer " + isLogin },
-    })
-      .then(function (response) {
-        setName(response.data.data.name);
-        setEmail(response.data.data.email);
-        setPictureEdit(response.data.data.profilePictureUrl);
-        setPhoneNum(response.data.data.phoneNumber);
-        setImagePreview(response.data.data.profilePictureUrl);
-      })
-      .catch((error) => {
-        console.log(error.response.data);
-      });
-  }, []);
-  const handleImage = (e) => {
-    setImage(e.target.files[0]);
-    setImagePreview(URL.createObjectURL(e.target.files[0]));
-  };
-  const handleEdit = async (e) => {
-    e.preventDefault();
-    let imageUrl = {
-      url: pictureEdit,
-    };
-    if (image) {
-      const formData = new FormData();
-      formData.append("image", image);
-      axios({
-        method: "post",
-        url: `${URL_API}/api/v1/upload-image`,
-        data: formData,
-        headers: {
-          apiKey: apiKey,
-          Authorization: "Bearer " + isLogin,
-        },
-      }).then(function (response) {
-        imageUrl = response.data;
-        console.log(response.data);
-      });
-    }
-    axios({
-      method: "post",
-      url: `${URL_API}/api/v1/update-profile`,
-      data: {
-        name: name,
-        email: email,
-        phoneNumber: phoneNum,
-        profilePictureUrl: imageUrl.url,
-      },
-      headers: { apiKey: apiKey, Authorization: "Bearer " + isLogin },
-    }).then(function (response2) {
-      console.log(response2.data);
-      alert("Update Data Succes!");
-      window.location.reload();
-    });
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-  };
-  const handlePhoneNumChange = (e) => {
-    setPhoneNum(e.target.value);
-  };
-
-  return (
-    <>
-      <div className="d-flex justify-content-center mb-4">
-        <img
-          src={imagePreview}
-          className="rounded-circle"
-          width="300px"
-          alt="Profile Picture"
-          height="300px"
-        />
-      </div>
-      <div className="d-flex justify-content-center">
-        <div className="btn btn-primary btn-rounded">
-          <label className="form-label text-white m-1" htmlFor="customFile2">
-            Choose file
-          </label>
-          <input
-            accept="image/*"
-            type="file"
-            className="form-control d-none"
-            id="customFile2"
-            onChange={(e) => handleImage(e)}
-          />
-        </div>
-      </div>
-      <div className="d-flex justify-content-center mt-4">
-        <form onSubmit={handleEdit}>
-          <div className="form-group">
-            <label htmlFor="exampleInputName">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              value={name}
-              onChange={handleNameChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
-            <input
-              type="email"
-              className="form-control"
-              id="exampleInputEmail1"
-              value={email}
-              onChange={handleEmailChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputPhoneNum">Phone Number</label>
-            <input
-              type="text"
-              className="form-control"
-              id="phoneNumber"
-              value={phoneNum}
-              onChange={handlePhoneNumChange}
-            />
-          </div>
-
-          <div className="d-flex justify-content-center">
-            <button type="submit" className="btn btn-primary">
-              Save
-            </button>
-          </div>
-        </form>
-      </div>
-    </>
-  );
-}
-
-export default FormItems;
-

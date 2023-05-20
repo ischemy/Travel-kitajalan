@@ -15,7 +15,6 @@ function Avatar() {
       url: `${URL_API}/api/v1/user`,
       headers: { apiKey: apiKey, Authorization: "Bearer " + isLogin },
     }).then(function (response) {
-      console.log(response.data.data);
       setUser(response.data.data);
     });
   }, []);

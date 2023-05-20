@@ -26,13 +26,11 @@ function Login() {
         window.location.reload();
       })
       .catch(function (error) {
-        console.log(error.response.data.message);
         alert(error.response.data.message);
       });
   }
   return (
     <>
-      {/* MODAL */}
       <div>
         <div
           className="modal fade"
@@ -95,7 +93,7 @@ function Login() {
                   </button>
                 </form>
               </div>
-              {/* REGISTER */}
+
               <div className="modal-footer">
                 <p>{"Don't have an account?"}</p>
                 <button

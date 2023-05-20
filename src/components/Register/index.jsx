@@ -13,7 +13,6 @@ function Register() {
   const [phoneNum, setPhoneNum] = useState("");
 
   const handleNameChange = (e) => {
-    // console.log(e)
     setName(e.target.value);
   };
 
@@ -49,12 +48,10 @@ function Register() {
       },
     })
       .then(function (response) {
-        console.log(response);
-        alert("success make account");
+        alert(response.data.message);
         window.location.reload();
       })
       .catch(function (err) {
-        console.log(err.response.data.message);
         alert(err.response.data.message);
       });
   };
